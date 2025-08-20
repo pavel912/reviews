@@ -1,9 +1,10 @@
 package pavel.lobanov.reviews.controllers;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,15 +39,13 @@ public class GameController {
     }
 
     @GetMapping(path = "")
-    public List<GameDto> getGames() {
-        List<GameDto> gameDtos = new ArrayList<>();
-        var games = gameRepository.findAll();
-
-        for (Game g : games) {
-            gameDtos.add(gameService.gameToGameDto(g));
+    public List<GameDto> getGames(@RequestParam(value = "pageNumber", required = false) Integer pageNumber, @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+        if (pageNumber == null || pageSize == null) {
+            return this.gamesToDtos(gameRepository.findAll());
         }
 
-        return gameDtos;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return this.gamesToDtos(gameRepository.findAll(pageable));
     }
 
     @PostMapping("")
@@ -73,5 +72,15 @@ public class GameController {
         }
 
         gameRepository.delete(game.get());
+    }
+
+    private List<GameDto> gamesToDtos(Iterable<Game> games) {
+        List<GameDto> gameDtos = new ArrayList<>();
+
+        for (Game g : games) {
+            gameDtos.add(gameService.gameToGameDto(g));
+        }
+
+        return gameDtos;
     }
 }

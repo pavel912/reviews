@@ -39,7 +39,7 @@ public class Game {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 
     public void addReview(Review review) {
