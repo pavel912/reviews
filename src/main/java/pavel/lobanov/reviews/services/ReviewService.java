@@ -37,8 +37,9 @@ public class ReviewService {
         review.setAuthor(reviewDto.getAuthor());
         review.setScore(reviewDto.getScore());
 
-        gameObj.addReview(review);
-        gameRepository.save(gameObj);
+        // var savedReview = reviewRepository.save(review);
+        // gameObj.addReview(savedReview);
+        // gameRepository.save(gameObj);
 
         return reviewRepository.save(review);
     }

@@ -1,5 +1,6 @@
 package pavel.lobanov.reviews.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.Instant;
@@ -15,8 +16,10 @@ public class GameDto {
 
     private Instant createdAt;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String description;
 
     private List<ReviewDto> reviews;
