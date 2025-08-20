@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,4 +38,11 @@ public class Game {
     @Size(min = 1, max = 2000)
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
+    private List<Review> reviews = new ArrayList<>();
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
 }

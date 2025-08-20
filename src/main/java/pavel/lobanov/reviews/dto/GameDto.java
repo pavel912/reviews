@@ -19,5 +19,5 @@ public class GameDto {
 
     private String description;
 
-    private Double score;
+    private List<ReviewDto> reviews;
 }

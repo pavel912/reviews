@@ -1,6 +1,5 @@
 package pavel.lobanov.reviews.services;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import pavel.lobanov.reviews.domain.Game;
-import pavel.lobanov.reviews.domain.Review;
 import pavel.lobanov.reviews.dto.GameDto;
 import pavel.lobanov.reviews.repository.GameRepository;
-import pavel.lobanov.reviews.repository.ReviewRepository;
-
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +19,7 @@ public class GameService {
     private GameRepository gameRepository;
 
     @Autowired
-    private ReviewRepository reviewRepository;
+    private ReviewService reviewService;
 
 
     public Game createGame(GameDto gameDto) {
@@ -53,23 +48,13 @@ public class GameService {
         return gameRepository.save(game.get());
     }
 
-    private Double calculateScore(Game game) {
-        List<Review> reviews = reviewRepository.findByGameId(game.getId());
-
-        if (reviews.isEmpty()) {
-            return null;
-        }
-
-        return ((double) reviews.stream().map(Review::getScore).mapToInt(x -> x).sum()) / reviews.size();
-    }
-
     public GameDto gameToGameDto(Game game) {
         return new GameDto(
                 game.getId(),
                 game.getCreatedAt(),
                 game.getName(),
                 game.getDescription(),
-                calculateScore(game)
+                game.getReviews().stream().map(reviewService::reviewToReviewDto).toList()
         );
     }
 }

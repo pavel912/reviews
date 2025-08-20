@@ -1,6 +1,5 @@
 package pavel.lobanov.reviews.services;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +30,14 @@ public class ReviewService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game with id " + reviewDto.getGameId() + " not found");
         }
 
-        review.setGame(game.get());
+        var gameObj = game.get();
+
+        review.setGame(gameObj);
         review.setReviewText(reviewDto.getReviewText());
         review.setScore(reviewDto.getScore());
+
+        gameObj.addReview(review);
+        gameRepository.save(gameObj);
 
         return reviewRepository.save(review);
     }
@@ -43,16 +47,6 @@ public class ReviewService {
 
         if (review.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review with id " + id + " not found");
-        }
-
-        if (reviewDto.getGameId() != null) {
-            var game = gameRepository.findById(reviewDto.getGameId());
-
-            if (game.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game with id " + reviewDto.getGameId() + " not found");
-            }
-
-            review.get().setGame(game.get());
         }
 
         if (reviewDto.getReviewText() != null) {
