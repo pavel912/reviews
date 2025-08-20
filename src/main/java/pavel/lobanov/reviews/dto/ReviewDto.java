@@ -16,6 +16,8 @@ public class ReviewDto {
 
     private String reviewText;
 
+    private String author;
+
     private Integer score;
 
     private Long gameId;

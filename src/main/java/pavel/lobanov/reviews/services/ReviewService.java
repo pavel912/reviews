@@ -34,6 +34,7 @@ public class ReviewService {
 
         review.setGame(gameObj);
         review.setReviewText(reviewDto.getReviewText());
+        review.setAuthor(reviewDto.getAuthor());
         review.setScore(reviewDto.getScore());
 
         gameObj.addReview(review);
@@ -53,6 +54,10 @@ public class ReviewService {
             review.get().setReviewText(reviewDto.getReviewText());
         }
 
+        if (reviewDto.getAuthor() != null) {
+            review.get().setAuthor(reviewDto.getAuthor());
+        }
+
         if (reviewDto.getScore() != null) {
             review.get().setScore(reviewDto.getScore());
         }
@@ -65,6 +70,7 @@ public class ReviewService {
                 review.getId(),
                 review.getCreatedAt(),
                 review.getReviewText(),
+                review.getAuthor(),
                 review.getScore(),
                 review.getGame().getId()
         );
