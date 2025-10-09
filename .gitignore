@@ -38,3 +38,7 @@ out/
 
 # Database
 db/reviews.db
+
+### Python Venv ###
+frontend/fvenv
+frontend/__pycache__

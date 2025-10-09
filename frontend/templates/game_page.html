@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <div class="game_page">
+        <div class="game_page_img">
+            <img src="" width="500" height="500">
+        </div>
+        <div class="game_page_descr">
+            <h1>{{ game.name }}</h1>
+            <p>{{ game.description }}</p>
+        </div>
+    </div>
+
+    <div class="reviews_list">
+        <h2>Reviews:</h2>
+        {% for review in reviews -%}
+        <div class="reviews_card">
+            <h3>{{ review.author }}</h3>
+            <p>Gives a score of: {{ review.score }}/10</p>
+            <p>And says: {{ review.reviewText }}</p>
+        </div>
+    {%- endfor %}
+    </div>
+
+    <h2>Add your review!</h2>
+    <div class="review_form_block">
+        <form method="post" class="review_form">
+            <div class="review_form_row">
+                <label for="name">Enter your nickname: </label>
+                <input type="text" name="name" id="name" required />
+            </div>
+            <div class="review_form_row">
+                <label for="score">Enter your score from 1 to 10: </label>
+                <select id="score" name="score" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <div class="review_form_row">
+                <label for="review_text">Enter your review (optional): </label>
+                <input type="text" name="review_text" id="review_text"/>
+            </div>
+            <div class="review_form_row">
+                <input type="submit" value="Post"/>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

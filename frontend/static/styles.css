@@ -1,0 +1,85 @@
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+header {
+    min-height: 50px;
+}
+
+footer {
+    min-height: 50px;
+}
+
+.game_card {
+    display: flex;
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.game_card_img {
+    padding: 5px;
+}
+
+.game_card_descr {
+
+}
+
+.game_page {
+    display: flex;
+}
+
+.game_page_img {
+    padding: 10px;
+}
+
+.game_page_descr {
+}
+
+.reviews_list {
+
+}
+
+.reviews_card {
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.review_form_block {
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.review_form {
+    display: table;
+}
+
+.review_form_row {
+    display: table-row;
+}
+
+label { 
+    display: table-cell;
+    padding-right: 10px;
+}
+
+input { 
+    display: table-cell; 
+}
+
+select {
+    display: table-cell; 
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GameReviewer</title>
+  <meta name="description" content="Simple site template for videogame listings and reviews." />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <a href="/"><h1>GameReviewer</h1></a>
+  </header>
+  <main>
+    <div>
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+  <footer>
+    <p>GameReviewer 2025</p>
+  </footer>
+</body>
+</html>
