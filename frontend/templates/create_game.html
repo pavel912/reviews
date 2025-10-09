@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form action="/games" method="post" class="game_form">
+    <div class="game_form_row">
+        <label for="name">Enter game's name: </label>
+        <input type="text" name="name" id="name" required />
+    </div>
+    <div class="game_form_row">
+        <label for="description">Enter your description: </label>
+        <input type="text" name="description" id="description" required/>
+    </div>
+    <div class="game_form_row">
+        <label for="cover">Upload game cover (optional): </label>
+        <input type="file" name="cover" id="cover" accept="image/png, image/jpeg"/>
+    </div>
+    <div class="game_form_row">
+        <input type="submit" value="Submit"/>
+    </div>
+</form>
+{% endblock %}

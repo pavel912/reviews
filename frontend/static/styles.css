@@ -6,6 +6,23 @@ body {
 
 header {
     min-height: 50px;
+    min-width: 100vh;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+}
+
+.name {
+    min-width: 100px;
+}
+
+.pannel {
+    min-width: 100px;
+}
+
+.create_game_link {
+    display: inline-block;
+    padding-top: 25%;
+    padding-bottom: 25%;
 }
 
 footer {
@@ -82,4 +99,12 @@ input {
 
 select {
     display: table-cell; 
+}
+
+.game_form {
+    display: table;
+}
+
+.game_form_row {
+    display: table-row;
 }

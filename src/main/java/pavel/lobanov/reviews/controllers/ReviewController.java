@@ -26,7 +26,7 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @GetMapping("/{id}")
-    public ReviewDto getGame(@PathVariable long id) {
+    public ReviewDto getReview(@PathVariable long id) {
         var review = reviewRepository.findById(id);
 
         if (review.isEmpty()) {

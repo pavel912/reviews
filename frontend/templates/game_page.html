@@ -11,17 +11,6 @@
         </div>
     </div>
 
-    <div class="reviews_list">
-        <h2>Reviews:</h2>
-        {% for review in reviews -%}
-        <div class="reviews_card">
-            <h3>{{ review.author }}</h3>
-            <p>Gives a score of: {{ review.score }}/10</p>
-            <p>And says: {{ review.reviewText }}</p>
-        </div>
-    {%- endfor %}
-    </div>
-
     <h2>Add your review!</h2>
     <div class="review_form_block">
         <form method="post" class="review_form">
@@ -52,6 +41,16 @@
                 <input type="submit" value="Post"/>
             </div>
         </form>
+    </div>
 
+    <div class="reviews_list">
+        <h2>Reviews:</h2>
+        {% for review in reviews -%}
+        <div class="reviews_card">
+            <h3>{{ review.author }}</h3>
+            <p>Gives a score of: {{ review.score }}/10</p>
+            <p>And says: {{ review.reviewText }}</p>
+        </div>
+    {%- endfor %}
     </div>
 {% endblock %}

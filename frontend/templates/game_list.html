@@ -12,4 +12,11 @@
             </div>
         </div>
     {%- endfor %}
+
+    <div>
+        {% if page_number > 0 %}
+            <a href="/?pageNumber={{ page_number - 1 }}">Prev</a>
+        {% endif %}
+        <a href="/?pageNumber={{ page_number + 1 }}">Next</a>
+    </div>
 {% endblock %}
