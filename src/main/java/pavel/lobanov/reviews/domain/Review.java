@@ -34,11 +34,6 @@ public class Review {
     @Column(name = "review_text")
     private String reviewText;
 
-    @NotNull
-    @Size(min = 1)
-    @Column(name = "author")
-    private String author;
-
     @Min(1)
     @Max(10)
     @Column(name = "score")
@@ -48,4 +43,9 @@ public class Review {
     @JoinColumn(name = "game_id")
     @ManyToOne
     private Game game;
+
+    @NotNull
+    @JoinColumn(name = "author_id")
+    @ManyToOne
+    private User author;
 }

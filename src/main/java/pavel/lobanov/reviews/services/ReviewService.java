@@ -4,12 +4,15 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import pavel.lobanov.reviews.domain.Review;
+import pavel.lobanov.reviews.domain.User;
 import pavel.lobanov.reviews.dto.ReviewDto;
 import pavel.lobanov.reviews.repository.GameRepository;
 import pavel.lobanov.reviews.repository.ReviewRepository;
+import pavel.lobanov.reviews.repository.UserRepository;
 
 @Service
 @Transactional
@@ -21,7 +24,10 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    public Review createReview(ReviewDto reviewDto) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Review createReview(ReviewDto reviewDto, User author) {
         Review review = new Review();
 
         var game = gameRepository.findById(reviewDto.getGameId());
@@ -30,11 +36,9 @@ public class ReviewService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game with id " + reviewDto.getGameId() + " not found");
         }
 
-        var gameObj = game.get();
-
-        review.setGame(gameObj);
+        review.setGame(game.get());
         review.setReviewText(reviewDto.getReviewText());
-        review.setAuthor(reviewDto.getAuthor());
+        review.setAuthor(author);
         review.setScore(reviewDto.getScore());
 
         // var savedReview = reviewRepository.save(review);
@@ -55,10 +59,6 @@ public class ReviewService {
             review.get().setReviewText(reviewDto.getReviewText());
         }
 
-        if (reviewDto.getAuthor() != null) {
-            review.get().setAuthor(reviewDto.getAuthor());
-        }
-
         if (reviewDto.getScore() != null) {
             review.get().setScore(reviewDto.getScore());
         }
@@ -71,9 +71,9 @@ public class ReviewService {
                 review.getId(),
                 review.getCreatedAt(),
                 review.getReviewText(),
-                review.getAuthor(),
                 review.getScore(),
-                review.getGame().getId()
+                review.getGame().getId(),
+                review.getAuthor().getId()
         );
     }
 }

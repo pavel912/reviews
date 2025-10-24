@@ -4,26 +4,20 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.Instant;
-import java.util.List;
 
 @Data
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameDto {
+public class UserDto {
     private long id;
 
     private Instant createdAt;
 
     @NotNull
-    private String name;
+    private String username;
 
     @NotNull
-    private String description;
-
-    @NotNull
-    private Long creatorId;
-
-    private List<ReviewDto> reviews;
+    private String password;
 }

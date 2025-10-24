@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pavel.lobanov.reviews.domain.Game;
+import pavel.lobanov.reviews.domain.User;
 import pavel.lobanov.reviews.dto.GameDto;
 import pavel.lobanov.reviews.repository.GameRepository;
 import pavel.lobanov.reviews.services.GameService;
@@ -26,6 +28,10 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+
+    private static final String ONLY_OWNER_BY_ID = """
+            @gameRepository.findById(#id).get().getCreator().getUsername().equals(authentication.getName())
+            """;
 
     @GetMapping("/{id}")
     public GameDto getGame(@PathVariable long id) {
@@ -50,21 +56,23 @@ public class GameController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public GameDto createGame(@RequestBody @Valid GameDto gameDto) {
-        Game game = gameService.createGame(gameDto);
+    public GameDto createGame(@RequestBody @Valid GameDto gameDto, Authentication authentication) {
+        Game game = gameService.createGame(gameDto, (User) authentication.getPrincipal());
 
         return gameService.gameToGameDto(game);
     }
 
     @PatchMapping("/{id}")
-    public GameDto updateGame(@PathVariable long id, @RequestBody @Valid GameDto gameDto) {
+    @PreAuthorize(ONLY_OWNER_BY_ID)
+    public GameDto updateGame(@PathVariable long id, @RequestBody @Valid GameDto gameDto, Authentication authentication) {
         Game game = gameService.updateGame(id, gameDto);
 
         return gameService.gameToGameDto(game);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteGame(@PathVariable long id) {
+    @PreAuthorize(ONLY_OWNER_BY_ID)
+    public void deleteGame(@PathVariable long id, Authentication authentication) {
         var game = gameRepository.findById(id);
 
         if (game.isEmpty()) {

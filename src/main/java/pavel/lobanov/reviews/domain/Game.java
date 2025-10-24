@@ -39,6 +39,11 @@ public class Game {
     @Column(name = "description")
     private String description;
 
+    @NotNull
+    @JoinColumn(name = "creator_id")
+    @ManyToOne
+    private User creator;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 

@@ -19,11 +19,11 @@ public class ReviewDto {
     private String reviewText;
 
     @NotNull
-    private String author;
-
-    @NotNull
     private Integer score;
 
     @NotNull
     private Long gameId;
+
+    @NotNull
+    private Long authorId;
 }
