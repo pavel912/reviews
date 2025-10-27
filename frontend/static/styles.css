@@ -108,3 +108,11 @@ select {
 .game_form_row {
     display: table-row;
 }
+
+.login_form {
+    display: table;
+}
+
+.login_form_row {
+    display: table-row;
+}

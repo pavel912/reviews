@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GameReviewer</title>
-  <meta name="description" content="Simple site template for videogame listings and reviews." />
+  <meta name="description" content="Simple service for videogame listings and reviews." />
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -15,6 +15,11 @@
     <div></div>
     <div class="pannel">
       <a class="create_game_link" href="/games/create">Add your game!</a>
+      {% if is_authenticated %}
+        <a href="/auth/logout">Log Out</a>
+      {% else %}
+        <a href="/auth/login">Log in</a>
+      {% endif %}
     </div>
   </header>
   <main>

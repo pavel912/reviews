@@ -27,6 +27,9 @@ public class ReviewService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     public Review createReview(ReviewDto reviewDto, User author) {
         Review review = new Review();
 
@@ -73,7 +76,7 @@ public class ReviewService {
                 review.getReviewText(),
                 review.getScore(),
                 review.getGame().getId(),
-                review.getAuthor().getId()
+                authenticationService.userToUserDto(review.getAuthor())
         );
     }
 }

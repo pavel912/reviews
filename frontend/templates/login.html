@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form action="/auth/login" method="post" class="login_form">
+    <div class="login_form_row">
+        <label for="username">Enter your username: </label>
+        <input type="text" name="username" id="username" required />
+    </div>
+    <div class="login_form_row">
+        <label for="description">Enter your password: </label>
+        <input type="text" name="password" id="password" required/>
+    </div>
+    <div class="login_form_row">
+        <input type="submit" value="Submit"/>
+    </div>
+</form>
+
+<a href="/auth/signup">Don't have an account? Sign up here!</a>
+{% endblock %}

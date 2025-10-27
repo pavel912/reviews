@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form action="/auth/signup" method="post" class="register_form">
+    <div class="register_form">
+        <label for="username">Enter your username: </label>
+        <input type="text" name="username" id="username" required />
+    </div>
+    <div class="register_form">
+        <label for="description">Enter your password: </label>
+        <input type="text" name="password" id="password" required/>
+    </div>
+    <div class="register_form">
+        <label for="description">Confirm password: </label>
+        <input type="text" name="password_cnf" id="password_cnf" required/>
+    </div>
+    <div class="register_form">
+        <input type="submit" value="Submit"/>
+    </div>
+</form>
+{% endblock %}

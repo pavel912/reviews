@@ -24,6 +24,5 @@ public class ReviewDto {
     @NotNull
     private Long gameId;
 
-    @NotNull
-    private Long authorId;
+    private UserDto author;
 }
